@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard – Avaliação de Candidatos DCPPP</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{
+font-family: Arial, sans-serif;
+margin:0;
+background:#f4f6fb;
+}
+
+header{
+background:#1f3c88;
+color:white;
+padding:25px 40px;
+}
+
+.container{
+padding:30px 40px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 14px rgba(0,0,0,0.1);
+margin-bottom:25px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+h2{
+margin-top:0;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#eef2ff;
+}
+
+.badge{
+padding:5px 10px;
+border-radius:6px;
+color:white;
+font-size:12px;
+}
+
+.alta{background:#2e7d32}
+.media{background:#f9a825}
+
+select{
+padding:8px;
+margin-bottom:10px;
+}
+
+.profile{
+background:#f7f9ff;
+padding:15px;
+border-radius:8px;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Painel de Avaliação de Candidatos</h1>
+<p>Vaga: Assessor – Diretoria Central de Processamento do Pagamento de Pessoal (DCPPP)</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Comparação Geral</h2>
+
+<table>
+
+<tr>
+<th>Candidato</th>
+<th>Comunicação</th>
+<th>Experiência</th>
+<th>Processos / Automação</th>
+<th>Destaques</th>
+<th>Aderência</th>
+</tr>
+
+<tr>
+<td>Andre Jannotti</td>
+<td>Boa</td>
+<td>Área de pessoal</td>
+<td>Forte em mapeamento e fluxo de processos</td>
+<td>Equilíbrio técnico e institucional</td>
+<td><span class="badge alta">Alta</span></td>
+</tr>
+
+<tr>
+<td>Vinicius Clemente</td>
+<td>Muito boa</td>
+<td>Gestão pública / privada</td>
+<td>Ferramentas de gestão e mapeamento</td>
+<td>Visão externa diferenciada</td>
+<td><span class="badge alta">Alta</span></td>
+</tr>
+
+<tr>
+<td>Leidi Silva</td>
+<td>Boa</td>
+<td>Projetos de automação</td>
+<td>BI, dashboards e processos</td>
+<td>Proatividade e organização</td>
+<td><span class="badge alta">Alta</span></td>
+</tr>
+
+<tr>
+<td>Eduarda Ferreira</td>
+<td>Boa</td>
+<td>Projetos administrativos</td>
+<td>Ferramentas de processos</td>
+<td>Participativa e proativa</td>
+<td><span class="badge media">Média</span></td>
+</tr>
+
+<tr>
+<td>Evandro Magiolli</td>
+<td>Muito boa</td>
+<td>Área contábil pública</td>
+<td>Participação em projetos de equipe</td>
+<td>Experiência institucional</td>
+<td><span class="badge media">Média</span></td>
+</tr>
+
+<tr>
+<td>Sebastião Avelino</td>
+<td>Boa</td>
+<td>Tecnologia</td>
+<td>Python, banco de dados, automação</td>
+<td>Perfil técnico forte</td>
+<td><span class="badge media">Média</span></td>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card">
+<h2>Ranking de Aderência</h2>
+<canvas id="ranking"></canvas>
+</div>
+
+<div class="card">
+<h2>Competências Comparadas</h2>
+<canvas id="skills"></canvas>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Análise detalhada do candidato</h2>
+
+<select id="candidateSelect">
+<option value="andre">Andre Jannotti</option>
+<option value="vinicius">Vinicius Clemente</option>
+<option value="leidi">Leidi Silva</option>
+<option value="eduarda">Eduarda Ferreira</option>
+<option value="evandro">Evandro Magiolli</option>
+<option value="sebastiao">Sebastião Avelino</option>
+</select>
+
+<div id="profile" class="profile"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+// Ranking chart
+
+new Chart(document.getElementById("ranking"),{
+
+type:"bar",
+
+data:{
+
+labels:["Andre","Vinicius","Leidi","Eduarda","Evandro","Sebastião"],
+
+datasets:[{
+label:"Aderência",
+data:[9,9,8,6,6,5]
+}]
+
+},
+
+options:{
+plugins:{legend:{display:false}},
+scales:{y:{beginAtZero:true,max:10}}
+}
+
+});
+
+
+// Radar chart
+
+new Chart(document.getElementById("skills"),{
+
+type:"radar",
+
+data:{
+
+labels:["Processos","Automação","Gestão","Comunicação","Tecnologia"],
+
+datasets:[
+
+{label:"Andre",data:[9,6,7,7,6]},
+{label:"Vinicius",data:[8,7,8,9,6]},
+{label:"Leidi",data:[7,8,6,7,7]},
+{label:"Eduarda",data:[6,6,5,7,5]}
+
+]
+
+}
+
+});
+
+
+const profiles = {
+
+andre:`
+<b>Perfil:</b> Forte experiência em mapeamento de processos e fluxo organizacional.<br><br>
+<b>Pontos fortes</b>
+<ul>
+<li>Experiência na área de pessoal</li>
+<li>Domínio de desenho de processos</li>
+<li>Boa adaptação ao ambiente institucional</li>
+</ul>
+<b>Observação:</b> Perfil equilibrado entre capacidade técnica e relacionamento institucional.
+`,
+
+vinicius:`
+<b>Perfil:</b> Profissional com visão estratégica e experiência em ferramentas de gestão.<br><br>
+<b>Pontos fortes</b>
+<ul>
+<li>Excelente comunicação</li>
+<li>Experiência com mapeamento e melhoria de processos</li>
+<li>Visão diferenciada do setor privado</li>
+</ul>
+<b>Observação:</b> Potencial de inovação e novas perspectivas.
+`,
+
+leidi:`
+<b>Perfil:</b> Experiência em automação, BI e organização de processos.<br><br>
+<b>Pontos fortes</b>
+<ul>
+<li>Automação e dashboards</li>
+<li>Participação em projetos de processos</li>
+<li>Proatividade</li>
+</ul>
+<b>Observação:</b> Demonstra facilidade em organizar atividades e contribuir com melhorias.
+`,
+
+eduarda:`
+<b>Perfil:</b> Participativa e proativa em projetos administrativos.<br><br>
+<b>Pontos fortes</b>
+<ul>
+<li>Boa comunicação</li>
+<li>Experiência com ferramentas de processo</li>
+<li>Participação em projetos</li>
+</ul>
+<b>Observação:</b> Menor maturidade em gestão e área de pessoal.
+`,
+
+evandro:`
+<b>Perfil:</b> Profissional experiente na administração pública.<br><br>
+<b>Pontos fortes</b>
+<ul>
+<li>Comunicação forte</li>
+<li>Experiência contábil pública</li>
+<li>Bom relacionamento institucional</li>
+</ul>
+<b>Observação:</b> Menor domínio técnico em automação e redesenho.
+`,
+
+sebastiao:`
+<b>Perfil:</b> Especialista em tecnologia e automação.<br><br>
+<b>Pontos fortes</b>
+<ul>
+<li>Python e banco de dados</li>
+<li>Automação</li>
+<li>Perfil técnico avançado</li>
+</ul>
+<b>Observação:</b> Experiência menor com gestão de processos administrativos.
+`
+
+}
+
+
+const select = document.getElementById("candidateSelect")
+const profile = document.getElementById("profile")
+
+function updateProfile(){
+
+profile.innerHTML = profiles[select.value]
+
+}
+
+select.addEventListener("change",updateProfile)
+
+updateProfile()
+
+</script>
+
+</body>
+</html>
