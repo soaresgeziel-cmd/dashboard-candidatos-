@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Aderência — DCPPP</title>
+
+<style>
+:root{
+    --bg:#f5f7fa;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --blue:#3478c8;
+    --yellow:#c58a00;
+    --green:#238636;
+    --gray:#9ca3af;
+    --dark:#111827;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+.container{
+    max-width:1400px;
+    margin:0 auto;
+    padding:28px;
+}
+
+.header{
+    background:linear-gradient(135deg,#163a63,#245b91);
+    color:white;
+    border-radius:16px;
+    padding:30px 34px;
+    margin-bottom:24px;
+}
+
+.header h1{
+    margin:0 0 8px;
+    font-size:28px;
+}
+
+.header p{
+    margin:0;
+    opacity:.9;
+    font-size:15px;
+}
+
+.header .sub{
+    margin-top:12px;
+    font-size:14px;
+    opacity:.8;
+}
+
+.section{
+    margin-top:28px;
+}
+
+.section-title{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:14px;
+}
+
+.section-subtitle{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:-6px;
+    margin-bottom:16px;
+}
+
+.grid-4{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+.kpi-label{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:10px;
+}
+
+.kpi-value{
+    font-size:25px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.kpi-detail{
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.4;
+}
+
+.ranking{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.rank-item{
+    display:grid;
+    grid-template-columns:48px 150px 120px 1fr 70px;
+    align-items:center;
+    gap:12px;
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:10px;
+}
+
+.rank-number{
+    font-size:20px;
+    font-weight:700;
+    text-align:center;
+}
+
+.rank-name{
+    font-weight:700;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    text-align:center;
+}
+
+.badge.green{
+    background:#e7f5eb;
+    color:#176b2c;
+}
+
+.badge.yellow{
+    background:#fff5d8;
+    color:#7a5700;
+}
+
+.badge.gray{
+    background:#eef0f2;
+    color:#5f6670;
+}
+
+.rank-desc{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.percent{
+    font-weight:700;
+    text-align:right;
+}
+
+.criteria{
+    display:grid;
+    gap:10px;
+}
+
+.criteria-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--border);
+    padding:10px 0;
+}
+
+.criteria-item:last-child{
+    border-bottom:none;
+}
+
+.criteria-name{
+    font-weight:600;
+}
+
+.criteria-desc{
+    color:var(--muted);
+    font-size:12px;
+    text-align:right;
+    max-width:55%;
+}
+
+.profile-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px;
+}
+
+.chart-row{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:16px;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.chart-label{
+    font-size:13px;
+    font-weight:600;
+}
+
+.bars{
+    display:grid;
+    gap:6px;
+}
+
+.bar-line{
+    display:grid;
+    grid-template-columns:72px 1fr 38px;
+    align-items:center;
+    gap:8px;
+}
+
+.bar-name{
+    font-size:11px;
+    color:var(--muted);
+}
+
+.bar-bg{
+    height:12px;
+    background:#edf0f3;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.bar{
+    height:100%;
+    border-radius:20px;
+}
+
+.bar.alexandre{
+    background:var(--blue);
+}
+
+.bar.liliane{
+    background:var(--yellow);
+}
+
+.bar.rian{
+    background:var(--green);
+}
+
+.bar-value{
+    font-size:11px;
+    text-align:right;
+    color:var(--muted);
+}
+
+.legend{
+    display:flex;
+    gap:20px;
+    margin-top:18px;
+    flex-wrap:wrap;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.legend-box{
+    width:12px;
+    height:12px;
+    border-radius:3px;
+}
+
+.note{
+    margin-top:16px;
+    padding:12px 14px;
+    background:#f8fafc;
+    border-left:4px solid #94a3b8;
+    border-radius:6px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+}
+
+.table-wrap{
+    overflow-x:auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+th,td{
+    padding:13px 14px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    background:#f8fafc;
+    font-weight:700;
+}
+
+tr:last-child td{
+    border-bottom:none;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.status.strong{
+    background:#e7f5eb;
+    color:#176b2c;
+}
+
+.status.partial{
+    background:#fff5d8;
+    color:#7a5700;
+}
+
+.status.none{
+    background:#eef0f2;
+    color:#626b75;
+}
+
+.selector{
+    margin-bottom:16px;
+}
+
+select{
+    width:100%;
+    max-width:400px;
+    padding:11px 13px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:white;
+    font-size:14px;
+}
+
+.profile-header{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:flex-start;
+    margin-bottom:18px;
+}
+
+.profile-name{
+    font-size:24px;
+    font-weight:700;
+}
+
+.profile-role{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:4px;
+}
+
+.profile-summary{
+    background:#f8fafc;
+    border-radius:10px;
+    padding:15px;
+    font-size:14px;
+    line-height:1.55;
+    margin-bottom:18px;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.profile-section h4{
+    margin:0 0 10px;
+    font-size:14px;
+}
+
+.profile-section ul{
+    margin:0;
+    padding-left:20px;
+}
+
+.profile-section li{
+    margin-bottom:7px;
+    font-size:13px;
+    line-height:1.4;
+}
+
+.attention{
+    background:#fffaf0;
+    border-left:4px solid #d6a72b;
+    padding:13px 15px;
+    border-radius:7px;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:16px;
+}
+
+.differential{
+    background:#f0f7ff;
+    border-left:4px solid #3478c8;
+    padding:13px 15px;
+    border-radius:7px;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:12px;
+}
+
+.footer{
+    margin-top:30px;
+    padding:20px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    border-top:1px solid var(--border);
+}
+
+@media(max-width:1100px){
+    .grid-4{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .rank-item{
+        grid-template-columns:42px 130px 110px 1fr 60px;
+    }
+}
+
+@media(max-width:800px){
+    .container{
+        padding:16px;
+    }
+
+    .grid-4,
+    .grid-2,
+    .profile-grid{
+        grid-template-columns:1fr;
+    }
+
+    .rank-item{
+        grid-template-columns:38px 1fr 80px;
+    }
+
+    .rank-desc{
+        grid-column:2 / 4;
+    }
+
+    .percent{
+        grid-column:3;
+    }
+
+    .chart-row{
+        grid-template-columns:1fr;
+        gap:8px;
+    }
+
+    .profile-header{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="header">
+    <h1>Dashboard de Aderência — DCPPP</h1>
+    <p>Vaga: Técnico em Contabilidade — Contratado MGS</p>
+    <div class="sub">
+        Diretoria Central de Processamento de Pagamento de Pessoal · Coordenação de Integração da Folha de Pessoal
+    </div>
+</header>
+
+
+<!-- RESUMO EXECUTIVO -->
+
+<section class="section">
+
+<div class="section-title">Resumo executivo</div>
+
+<div class="grid-4">
+
+<div class="card">
+    <div class="kpi-label">Candidatos avaliados</div>
+    <div class="kpi-value">3</div>
+    <div class="kpi-detail">Entrevistas analisadas com base nos registros disponíveis.</div>
+</div>
+
+<div class="card">
+    <div class="kpi-label">Maior aderência geral</div>
+    <div class="kpi-value">Rian</div>
+    <div class="kpi-detail">Combinação entre contabilidade, folha, financeiro, RH e classificação de despesa.</div>
+</div>
+
+<div class="card">
+    <div class="kpi-label">Maior experiência profissional</div>
+    <div class="kpi-value">Liliane</div>
+    <div class="kpi-detail">Longa trajetória em contabilidade, DP, fiscal, eSocial e previdenciário.</div>
+</div>
+
+<div class="card">
+    <div class="kpi-label">Diferencial público</div>
+    <div class="kpi-value">Edmar</div>
+    <div class="kpi-detail">Experiência na FUCAM e conhecimento de SISAP e SIMADE.</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- RANKING + CRITÉRIOS -->
+
+<section class="section grid-2">
+
+<div class="card">
+
+<div class="section-title">Ranking de aderência</div>
+
+<div class="ranking">
+
+<div class="rank-item">
+    <div class="rank-number">1º</div>
+    <div class="rank-name">Rian</div>
+    <div><span class="badge green">Muito alta</span></div>
+    <div class="rank-desc">Contabilidade + folha + financeiro + classificação de despesa + RH</div>
+    <div class="percent">91%</div>
+</div>
+
+<div class="rank-item">
+    <div class="rank-number">2º</div>
+    <div class="rank-name">Liliane</div>
+    <div><span class="badge green">Alta</span></div>
+    <div class="rank-desc">Contabilidade + DP + eSocial + previdenciário + experiência extensa</div>
+    <div class="percent">84%</div>
+</div>
+
+<div class="rank-item">
+    <div class="rank-number">3º</div>
+    <div class="rank-name">Edmar</div>
+    <div><span class="badge yellow">Média</span></div>
+    <div class="rank-desc">Experiência pública + SISAP + controle e auditoria</div>
+    <div class="percent">68%</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="card">
+
+<div class="section-title">O que será mais importante na função?</div>
+
+<div class="criteria">
+
+<div class="criteria-item">
+    <div class="criteria-name">Folha e pagamento</div>
+    <div class="criteria-desc">Rotinas de processamento e pagamento da folha</div>
+</div>
+
+<div class="criteria-item">
+    <div class="criteria-name">Encargos</div>
+    <div class="criteria-desc">Conhecimentos previdenciários e encargos relacionados</div>
+</div>
+
+<div class="criteria-item">
+    <div class="criteria-name">Contabilidade</div>
+    <div class="criteria-desc">Registros, conferências e classificação</div>
+</div>
+
+<div class="criteria-item">
+    <div class="criteria-name">Despesa pública</div>
+    <div class="criteria-desc">Ações, natureza da despesa e fonte de recursos</div>
+</div>
+
+<div class="criteria-item">
+    <div class="criteria-name">Sistemas</div>
+    <div class="criteria-desc">SIAFI, SEI e sistemas relacionados às rotinas</div>
+</div>
+
+<div class="criteria-item">
+    <div class="criteria-name">Processos e análise</div>
+    <div class="criteria-desc">Conferência, organização e compreensão de rotinas</div>
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- PERFIL COMPARATIVO -->
+
+<section class="section">
+
+<div class="section-title">Perfil comparativo</div>
+
+<div class="section-subtitle">
+Síntese visual das evidências identificadas durante as entrevistas.
+</div>
+
+<div class="profile-card">
+
+<div class="chart-row">
+<div class="chart-label">Contabilidade</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:100%"></div></div>
+        <div class="bar-value">100</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:100%"></div></div>
+        <div class="bar-value">100</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:80%;background:#64748b"></div></div>
+        <div class="bar-value">80</div>
+    </div>
+</div>
+</div>
+
+
+<div class="chart-row">
+<div class="chart-label">Folha / pagamento</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:85%"></div></div>
+        <div class="bar-value">85</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:90%"></div></div>
+        <div class="bar-value">90</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:10%;background:#64748b"></div></div>
+        <div class="bar-value">10</div>
+    </div>
+</div>
+</div>
+
+
+<div class="chart-row">
+<div class="chart-label">Encargos / previdenciário</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:55%"></div></div>
+        <div class="bar-value">55</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:100%"></div></div>
+        <div class="bar-value">100</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:10%;background:#64748b"></div></div>
+        <div class="bar-value">10</div>
+    </div>
+</div>
+</div>
+
+
+<div class="chart-row">
+<div class="chart-label">Despesa pública</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:85%"></div></div>
+        <div class="bar-value">85</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:20%"></div></div>
+        <div class="bar-value">20</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:15%;background:#64748b"></div></div>
+        <div class="bar-value">15</div>
+    </div>
+</div>
+</div>
+
+
+<div class="chart-row">
+<div class="chart-label">Sistemas</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:80%"></div></div>
+        <div class="bar-value">80</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:80%"></div></div>
+        <div class="bar-value">80</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:70%;background:#64748b"></div></div>
+        <div class="bar-value">70</div>
+    </div>
+</div>
+</div>
+
+
+<div class="chart-row">
+<div class="chart-label">Processos / análise</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:85%"></div></div>
+        <div class="bar-value">85</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:85%"></div></div>
+        <div class="bar-value">85</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:80%;background:#64748b"></div></div>
+        <div class="bar-value">80</div>
+    </div>
+</div>
+</div>
+
+
+<div class="chart-row">
+<div class="chart-label">Experiência pública</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:20%"></div></div>
+        <div class="bar-value">20</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:55%"></div></div>
+        <div class="bar-value">55</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:100%;background:#64748b"></div></div>
+        <div class="bar-value">100</div>
+    </div>
+</div>
+</div>
+
+
+<div class="chart-row">
+<div class="chart-label">Comunicação</div>
+<div class="bars">
+    <div class="bar-line">
+        <div class="bar-name">Rian</div>
+        <div class="bar-bg"><div class="bar rian" style="width:95%"></div></div>
+        <div class="bar-value">95</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Liliane</div>
+        <div class="bar-bg"><div class="bar liliane" style="width:70%"></div></div>
+        <div class="bar-value">70</div>
+    </div>
+    <div class="bar-line">
+        <div class="bar-name">Edmar</div>
+        <div class="bar-bg"><div class="bar" style="width:65%;background:#64748b"></div></div>
+        <div class="bar-value">65</div>
+    </div>
+</div>
+</div>
+
+
+<div class="legend">
+    <div class="legend-item">
+        <div class="legend-box" style="background:#238636"></div>
+        Rian
+    </div>
+
+    <div class="legend-item">
+        <div class="legend-box" style="background:#c58a00"></div>
+        Liliane
+    </div>
+
+    <div class="legend-item">
+        <div class="legend-box" style="background:#64748b"></div>
+        Edmar
+    </div>
+</div>
+
+<div class="note">
+<strong>Leitura do gráfico:</strong> o comprimento das barras representa uma síntese qualitativa da evidência registrada na entrevista.
+Não se trata de uma pontuação objetiva ou de uma avaliação psicométrica.
+<strong>“Não evidenciado” não significa ausência de conhecimento.</strong>
+</div>
+
+</div>
+</section>
+
+
+<!-- TABELA COMPARATIVA -->
+
+<section class="section">
+
+<div class="section-title">Comparação por requisito</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Critério</th>
+<th>Rian</th>
+<th>Liliane</th>
+<th>Edmar</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><strong>Contabilidade</strong></td>
+<td><span class="status strong">Muito alta</span></td>
+<td><span class="status strong">Muito alta</span></td>
+<td><span class="status strong">Alta</span></td>
+</tr>
+
+<tr>
+<td><strong>Folha / pagamento</strong></td>
+<td><span class="status strong">Alta</span></td>
+<td><span class="status strong">Alta</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+</tr>
+
+<tr>
+<td><strong>Encargos / previdenciário</strong></td>
+<td><span class="status partial">Alguma evidência</span></td>
+<td><span class="status strong">Muito alta</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+</tr>
+
+<tr>
+<td><strong>Classificação de despesa</strong></td>
+<td><span class="status strong">Alta</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+</tr>
+
+<tr>
+<td><strong>SIAFI</strong></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+</tr>
+
+<tr>
+<td><strong>SEI</strong></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+</tr>
+
+<tr>
+<td><strong>Excel</strong></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+</tr>
+
+<tr>
+<td><strong>Sistemas</strong></td>
+<td><span class="status strong">TOTVS / Domínio</span></td>
+<td><span class="status strong">Alterdata / Meta / Domínio</span></td>
+<td><span class="status partial">SISAP / SIMADE</span></td>
+</tr>
+
+<tr>
+<td><strong>eSocial</strong></td>
+<td><span class="status none">Não evidenciado</span></td>
+<td><span class="status strong">Muito alta</span></td>
+<td><span class="status none">Não evidenciado</span></td>
+</tr>
+
+<tr>
+<td><strong>Experiência pública</strong></td>
+<td><span class="status none">Baixa</span></td>
+<td><span class="status partial">Alguma evidência</span></td>
+<td><span class="status strong">Alta</span></td>
+</tr>
+
+<tr>
+<td><strong>Processos / análise</strong></td>
+<td><span class="status strong">Alta</span></td>
+<td><span class="status strong">Alta</span></td>
+<td><span class="status strong">Alta</span></td>
+</tr>
+
+<tr>
+<td><strong>Comunicação</strong></td>
+<td><span class="status strong">Muito boa</span></td>
+<td><span class="status partial">Boa</span></td>
+<td><span class="status partial">Não tão evidenciada</span></td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+</section>
+
+
+<!-- ANÁLISE INDIVIDUAL -->
+
+<section class="section">
+
+<div class="section-title">Análise individual</div>
+
+<div class="selector">
+<select id="candidateSelect" onchange="showCandidate()">
+<option value="rian">Rian</option>
+<option value="liliane">Liliane</option>
+<option value="edmar">Edmar</option>
+</select>
+</div>
+
+<div class="card" id="candidateProfile"></div>
+
+</section>
+
+
+<!-- METODOLOGIA -->
+
+<footer class="footer">
+
+<strong>Metodologia</strong><br><br>
+
+A avaliação foi construída exclusivamente a partir dos registros de uma entrevista breve.
+
+A classificação de aderência representa uma avaliação qualitativa para apoio à decisão, considerando a proximidade entre as experiências relatadas e as demandas da vaga.
+
+<strong>“Não evidenciado” significa que determinada competência ou conhecimento não apareceu nos registros disponíveis, não significando necessariamente ausência de conhecimento.</strong>
+
+A avaliação não substitui a percepção dos entrevistadores, a análise curricular ou eventual verificação posterior dos conhecimentos técnicos.
+
+</footer>
+
+</div>
+
+
+<script>
+
+const candidates = {
+
+rian: {
+    name:"Rian",
+    role:"Bacharel em Ciências Contábeis · CRC aprovado",
+
+    summary:"Apresenta a combinação mais completa entre formação contábil, experiência em folha, rotinas financeiras, classificação de despesa e atuação relacionada a RH. Durante a entrevista, foi claro, comunicativo e detalhou bastante suas experiências.",
+
+    strengths:[
+        "Bacharel em Ciências Contábeis pela UFMG.",
+        "CRC aprovado.",
+        "Experiência como auxiliar fiscal e contábil.",
+        "Experiência com conferência de notas fiscais e classificação de despesa.",
+        "Atuação em escritório de contabilidade com lançamentos contábeis e financeiros.",
+        "Experiência com contas a pagar e contas a receber.",
+        "Experiência com processamento de folha de pagamento e cálculos.",
+        "Experiência como assistente administrativo na área de RH.",
+        "Conhecimento de sistemas TOTVS/ERP e Domínio.",
+        "Comunicação clara e capacidade de detalhar as experiências."
+    ],
+
+    attention:"Não foram evidenciados conhecimentos específicos de SIAFI, SEI ou Excel. Também não ficou evidenciado conhecimento específico dos encargos da folha no contexto da administração pública.",
+
+    differential:"Combina formação contábil com experiências práticas em folha, financeiro, classificação de despesa e RH, formando um perfil bastante aderente à natureza técnica da vaga."
+},
+
+liliane: {
+    name:"Liliane",
+    role:"Técnica em Contabilidade · Experiência extensa na área contábil",
+
+    summary:"Apresenta uma trajetória profissional extensa na área contábil, com experiência em fiscal, departamento pessoal, contábil, eSocial e recuperação de créditos previdenciários. Seu principal diferencial está na experiência acumulada e na proximidade com rotinas de DP e previdenciárias.",
+
+    strengths:[
+        "Formação técnica em Contabilidade.",
+        "Longa trajetória profissional na área contábil.",
+        "Experiência em fiscal, Departamento Pessoal e contábil.",
+        "Atuação atual com auditoria de municípios.",
+        "Experiência com recuperação de créditos previdenciários.",
+        "Experiência com eSocial desde a fase de implementação.",
+        "Trabalho conjunto com programadores durante a implementação do eSocial.",
+        "Experiência com sistemas voltados ao Departamento Pessoal.",
+        "Conhecimento de Meta, Alterdata e Domínio.",
+        "Experiência relacionada a serviços prestados para prefeituras."
+    ],
+
+    attention:"Não foram evidenciados conhecimentos específicos de SIAFI, SEI ou Excel. Também não foram registrados exemplos concretos de processamento de folha de pagamento no contexto da administração pública.",
+
+    differential:"Experiência extensa em contabilidade e Departamento Pessoal, associada a eSocial e recuperação de créditos previdenciários, oferecendo uma base relevante para rotinas relacionadas à folha e seus encargos."
+},
+
+edmar: {
+    name:"Edmar",
+    role:"Técnico em Contabilidade · Experiência no setor público",
+
+    summary:"Apresenta como principal diferencial a experiência no setor público, especialmente pela atuação na FUCAM e pelo contato com SISAP e SIMADE. Também possui experiência prolongada em auditoria e controle de pessoas, serviços e qualidade.",
+
+    strengths:[
+        "Formação técnica em Contabilidade.",
+        "Formação em Gestão de Segurança Empresarial.",
+        "Experiência de aproximadamente 15 anos em auditoria de empresas.",
+        "Atuação com controle de pessoas, serviços e qualidade.",
+        "Experiência na FUCAM.",
+        "Atuação com controle de escolas.",
+        "Experiência em regiões do Norte de Minas e Metropolitana A e B.",
+        "Conhecimento de SISAP.",
+        "Conhecimento de SIMADE.",
+        "Experiência em atividades de controle e acompanhamento."
+    ],
+
+    attention:"Não foram evidenciadas experiências diretas com processamento de folha, taxação, pagamento de pessoal, encargos, SIAFI, SEI ou Excel. Durante a entrevista, também não foi lembrado o sistema utilizado em parte das atividades realizadas na FUCAM.",
+
+    differential:"Experiência no ambiente público estadual e contato com SISAP constituem diferenciais relevantes em relação aos demais candidatos, embora as atividades diretamente relacionadas à folha não tenham sido evidenciadas."
+}
+
+};
+
+
+function showCandidate(){
+
+    const key = document.getElementById("candidateSelect").value;
+    const c = candidates[key];
+
+    const profile = document.getElementById("candidateProfile");
+
+    profile.innerHTML = `
+
+        <div class="profile-header">
+
+            <div>
+                <div class="profile-name">${c.name}</div>
+                <div class="profile-role">${c.role}</div>
+            </div>
+
+        </div>
+
+        <div class="profile-summary">
+            ${c.summary}
+        </div>
+
+        <div class="profile-grid">
+
+            <div class="profile-section">
+                <h4>Pontos fortes evidenciados</h4>
+                <ul>
+                    ${c.strengths.map(item => `<li>${item}</li>`).join("")}
+                </ul>
+            </div>
+
+            <div class="profile-section">
+
+                <h4>Pontos de atenção</h4>
+
+                <div class="attention">
+                    ${c.attention}
+                </div>
+
+                <h4 style="margin-top:18px;">Principal diferencial</h4>
+
+                <div class="differential">
+                    ${c.differential}
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+showCandidate();
+
+</script>
+
+</body>
+</html>
