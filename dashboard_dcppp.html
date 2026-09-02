@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard — Aderência DCPPP</title>
+
+<style>
+
+/* =====================================================
+   BASE
+===================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f6fa;
+    color:#1f2937;
+}
+
+header{
+    background:linear-gradient(135deg,#173b78,#2862ad);
+    color:white;
+    padding:28px 45px;
+}
+
+header h1{
+    margin:0 0 7px;
+    font-size:27px;
+}
+
+header p{
+    margin:0;
+    font-size:14px;
+    opacity:.9;
+}
+
+.container{
+    max-width:1450px;
+    margin:auto;
+    padding:25px 35px 45px;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card{
+    background:white;
+    border:1px solid #e4e7ec;
+    border-radius:14px;
+    padding:21px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.card h2{
+    margin:0 0 18px;
+    font-size:18px;
+}
+
+
+/* =====================================================
+   KPIs
+===================================================== */
+
+.kpis{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.kpi-label{
+    color:#6b7280;
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.kpi-value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.kpi-description{
+    color:#6b7280;
+    font-size:12px;
+    margin-top:5px;
+}
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.two-columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+
+/* =====================================================
+   RANKING
+===================================================== */
+
+.ranking-item{
+    margin-bottom:20px;
+}
+
+.ranking-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:7px;
+}
+
+.ranking-name{
+    font-weight:bold;
+}
+
+.ranking-description{
+    font-size:12px;
+    color:#6b7280;
+    margin-top:6px;
+}
+
+.progress-bg{
+    height:11px;
+    background:#e9edf3;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress{
+    height:100%;
+    border-radius:10px;
+}
+
+.paulo{
+    width:92%;
+    background:#238636;
+}
+
+.alexandre{
+    width:89%;
+    background:#3478c8;
+}
+
+.adriana{
+    width:75%;
+    background:#c58a00;
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.badge{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.badge-high{
+    background:#e8f5eb;
+    color:#18733a;
+}
+
+.badge-medium{
+    background:#fff3d6;
+    color:#8a6200;
+}
+
+.badge-neutral{
+    background:#edf0f4;
+    color:#667085;
+}
+
+
+/* =====================================================
+   CRITÉRIOS DA VAGA
+===================================================== */
+
+.criteria{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.criteria-item{
+    background:#f7f9fc;
+    border-radius:9px;
+    padding:13px;
+    border-left:4px solid #2862ad;
+}
+
+.criteria-title{
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.criteria-description{
+    font-size:11px;
+    color:#6b7280;
+}
+
+
+/* =====================================================
+   TABELA
+===================================================== */
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+th{
+    background:#f7f8fb;
+    padding:11px;
+    text-align:left;
+    color:#4b5563;
+    border-bottom:1px solid #e1e5eb;
+}
+
+td{
+    padding:11px;
+    border-bottom:1px solid #edf0f3;
+}
+
+tr:hover{
+    background:#fafbfc;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    display:inline-block;
+}
+
+.green{
+    background:#238636;
+}
+
+.yellow{
+    background:#c58a00;
+}
+
+.gray{
+    background:#a7adb7;
+}
+
+
+/* =====================================================
+   PERFIL COMPARATIVO
+===================================================== */
+
+.comparison-chart{
+    width:100%;
+}
+
+.chart-legend{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+    font-size:12px;
+    color:#667085;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.legend-dot{
+    width:11px;
+    height:11px;
+    border-radius:3px;
+    display:inline-block;
+}
+
+.legend-alexandre{
+    background:#3478c8;
+}
+
+.legend-adriana{
+    background:#c58a00;
+}
+
+.legend-paulo{
+    background:#238636;
+}
+
+.comparison-row{
+    display:grid;
+    grid-template-columns:175px 1fr;
+    gap:20px;
+    margin-bottom:19px;
+    align-items:center;
+}
+
+.comparison-label{
+    font-size:13px;
+    font-weight:bold;
+    color:#374151;
+}
+
+.bars{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.bar-line{
+    display:grid;
+    grid-template-columns:95px 1fr;
+    gap:9px;
+    align-items:center;
+}
+
+.candidate-label{
+    font-size:10px;
+    color:#6b7280;
+    text-align:right;
+}
+
+.bar-bg{
+    height:12px;
+    background:#edf0f4;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.bar-fill{
+    height:100%;
+    border-radius:8px;
+    transition:width .4s ease;
+}
+
+.bar-alexandre{
+    background:#3478c8;
+}
+
+.bar-adriana{
+    background:#c58a00;
+}
+
+.bar-paulo{
+    background:#238636;
+}
+
+.chart-note{
+    margin-top:18px;
+    padding:11px 13px;
+    background:#f7f9fc;
+    border-radius:8px;
+    font-size:11px;
+    color:#667085;
+    line-height:1.45;
+}
+
+
+/* =====================================================
+   ANÁLISE INDIVIDUAL
+===================================================== */
+
+.select-area{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:20px;
+    align-items:start;
+}
+
+select{
+    width:100%;
+    padding:11px;
+    border:1px solid #d5d9e0;
+    border-radius:8px;
+    background:white;
+    font-size:14px;
+}
+
+.profile{
+    background:#f7f9fc;
+    border-radius:10px;
+    padding:18px;
+}
+
+.profile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.profile-name{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.profile-summary{
+    color:#374151;
+    margin-bottom:17px;
+    line-height:1.5;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.profile ul{
+    margin:8px 0 0;
+    padding-left:20px;
+}
+
+.profile li{
+    margin-bottom:7px;
+}
+
+.attention{
+    background:#fff7e6;
+    border-left:4px solid #c58a00;
+    padding:12px 14px;
+    border-radius:5px;
+    line-height:1.45;
+}
+
+
+/* =====================================================
+   RODAPÉ
+===================================================== */
+
+.methodology{
+    margin-top:20px;
+    font-size:11px;
+    color:#6b7280;
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media(max-width:1000px){
+
+    .kpis{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .two-columns{
+        grid-template-columns:1fr;
+    }
+
+    .select-area{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:700px){
+
+    header{
+        padding:24px;
+    }
+
+    .container{
+        padding:18px 14px;
+    }
+
+    .kpis{
+        grid-template-columns:1fr;
+    }
+
+    .criteria{
+        grid-template-columns:1fr;
+    }
+
+    .profile-grid{
+        grid-template-columns:1fr;
+    }
+
+    .comparison-row{
+        grid-template-columns:1fr;
+        gap:8px;
+    }
+
+    .comparison-label{
+        margin-bottom:3px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     CABEÇALHO
+===================================================== -->
+
+<header>
+
+<h1>
+Dashboard de Aderência — DCPPP
+</h1>
+
+<p>
+Vaga: Servidor Efetivo · FGD 7 · Coordenação de Integração da Folha de Pessoal
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =====================================================
+     RESUMO EXECUTIVO
+===================================================== -->
+
+<div class="kpis">
+
+
+<div class="card">
+
+<div class="kpi-label">
+Candidatos avaliados
+</div>
+
+<div class="kpi-value">
+3
+</div>
+
+<div class="kpi-description">
+Entrevista breve
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="kpi-label">
+Maior aderência
+</div>
+
+<div class="kpi-value">
+Paulo
+</div>
+
+<div class="kpi-description">
+Combinação entre folha + automação
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="kpi-label">
+Maior experiência em folha
+</div>
+
+<div class="kpi-value">
+Alexandre
+</div>
+
+<div class="kpi-description">
+5 anos como taxador
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="kpi-label">
+Diferencial financeiro
+</div>
+
+<div class="kpi-value">
+Adriana
+</div>
+
+<div class="kpi-description">
+SIAFI + empenho + liquidação
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     RANKING + CRITÉRIOS
+===================================================== -->
+
+<div class="two-columns">
+
+
+<!-- RANKING -->
+
+<div class="card">
+
+<h2>
+Ranking de aderência
+</h2>
+
+
+<div class="ranking-item">
+
+<div class="ranking-top">
+
+<span class="ranking-name">
+🥇 Paulo Estevão
+</span>
+
+<span class="badge badge-high">
+Muito alta
+</span>
+
+</div>
+
+<div class="progress-bg">
+
+<div class="progress paulo"></div>
+
+</div>
+
+<div class="ranking-description">
+
+Folha + taxação + automação + proatividade
+
+</div>
+
+</div>
+
+
+
+<div class="ranking-item">
+
+<div class="ranking-top">
+
+<span class="ranking-name">
+🥈 Alexandre Luiz
+</span>
+
+<span class="badge badge-high">
+Muito alta
+</span>
+
+</div>
+
+<div class="progress-bg">
+
+<div class="progress alexandre"></div>
+
+</div>
+
+<div class="ranking-description">
+
+Experiência mais longa e direta em pagamento e taxação
+
+</div>
+
+</div>
+
+
+
+<div class="ranking-item">
+
+<div class="ranking-top">
+
+<span class="ranking-name">
+🥉 Adriana Márcia
+</span>
+
+<span class="badge badge-medium">
+Alta
+</span>
+
+</div>
+
+<div class="progress-bg">
+
+<div class="progress adriana"></div>
+
+</div>
+
+<div class="ranking-description">
+
+Finanças públicas + SIAFI + SEI
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- CRITÉRIOS -->
+
+<div class="card">
+
+<h2>
+O que será mais importante na função?
+</h2>
+
+
+<div class="criteria">
+
+
+<div class="criteria-item">
+
+<div class="criteria-title">
+📄 Folha e pagamento
+</div>
+
+<div class="criteria-description">
+Processamento, taxação, pagamento e rotinas relacionadas.
+</div>
+
+</div>
+
+
+
+<div class="criteria-item">
+
+<div class="criteria-title">
+🧮 Encargos e cálculo
+</div>
+
+<div class="criteria-description">
+Conhecimento das rotinas e cálculos relacionados à folha.
+</div>
+
+</div>
+
+
+
+<div class="criteria-item">
+
+<div class="criteria-title">
+💰 Finanças públicas
+</div>
+
+<div class="criteria-description">
+Despesa, ações, natureza e fonte de recursos.
+</div>
+
+</div>
+
+
+
+<div class="criteria-item">
+
+<div class="criteria-title">
+💻 Sistemas
+</div>
+
+<div class="criteria-description">
+SIAFI, SEI, SISAP e Excel.
+</div>
+
+</div>
+
+
+
+<div class="criteria-item">
+
+<div class="criteria-title">
+⚙️ Processos e automação
+</div>
+
+<div class="criteria-description">
+Análise, melhoria e otimização das rotinas.
+</div>
+
+</div>
+
+
+
+<div class="criteria-item">
+
+<div class="criteria-title">
+🗣 Comunicação
+</div>
+
+<div class="criteria-description">
+Clareza, relacionamento, iniciativa e trabalho em equipe.
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     COMPARAÇÃO
+===================================================== -->
+
+<div class="card" style="margin-bottom:20px">
+
+<h2>
+Comparação dos candidatos
+</h2>
+
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Critério</th>
+
+<th>Alexandre</th>
+
+<th>Adriana</th>
+
+<th>Paulo</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td>
+<strong>Folha / pagamento</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Muito alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot yellow"></span>
+Indireta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Muito alta
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Taxação / cálculo</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Muito alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não evidenciado
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>SISAP</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não informado
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>SEI</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>SIAFI</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não evidenciado
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não evidenciado
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Finanças públicas</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não evidenciado
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não evidenciado
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Excel</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não informado
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Alta
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Automação / processos</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot gray"></span>
+Não evidenciado
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot yellow"></span>
+Alguma evidência
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Muito alta
+</span>
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Comunicação</strong>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Clara / objetiva
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Clara / objetiva
+</span>
+</td>
+
+<td>
+<span class="status">
+<span class="dot green"></span>
+Muito boa
+</span>
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="methodology">
+
+🟢 Evidência forte &nbsp;&nbsp;
+🟡 Evidência parcial ou indireta &nbsp;&nbsp;
+⚪ Não evidenciado.
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PERFIL COMPARATIVO
+===================================================== -->
+
+<div class="card" style="margin-bottom:20px">
+
+<h2>
+Perfil comparativo
+</h2>
+
+
+<div class="chart-legend">
+
+<div class="legend-item">
+
+<span class="legend-dot legend-alexandre"></span>
+
+Alexandre Luiz
+
+</div>
+
+
+<div class="legend-item">
+
+<span class="legend-dot legend-adriana"></span>
+
+Adriana Márcia
+
+</div>
+
+
+<div class="legend-item">
+
+<span class="legend-dot legend-paulo"></span>
+
+Paulo Estevão
+
+</div>
+
+</div>
+
+
+
+<div class="comparison-chart">
+
+
+<!-- FOLHA -->
+
+<div class="comparison-row">
+
+<div class="comparison-label">
+Folha / pagamento
+</div>
+
+<div class="bars">
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Alexandre
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-alexandre"
+style="width:100%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Adriana
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-adriana"
+style="width:40%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Paulo
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-paulo"
+style="width:100%">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- TAXAÇÃO -->
+
+<div class="comparison-row">
+
+<div class="comparison-label">
+Taxação / cálculo
+</div>
+
+<div class="bars">
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Alexandre
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-alexandre"
+style="width:100%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Adriana
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-adriana"
+style="width:5%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Paulo
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-paulo"
+style="width:90%">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- SISTEMAS -->
+
+<div class="comparison-row">
+
+<div class="comparison-label">
+Sistemas
+</div>
+
+<div class="bars">
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Alexandre
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-alexandre"
+style="width:80%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Adriana
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-adriana"
+style="width:80%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Paulo
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-paulo"
+style="width:80%">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- FINANÇAS -->
+
+<div class="comparison-row">
+
+<div class="comparison-label">
+Finanças públicas
+</div>
+
+<div class="bars">
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Alexandre
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-alexandre"
+style="width:5%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Adriana
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-adriana"
+style="width:100%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Paulo
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-paulo"
+style="width:5%">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- PROCESSOS -->
+
+<div class="comparison-row">
+
+<div class="comparison-label">
+Processos
+</div>
+
+<div class="bars">
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Alexandre
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-alexandre"
+style="width:65%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Adriana
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-adriana"
+style="width:70%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Paulo
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-paulo"
+style="width:95%">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- AUTOMAÇÃO -->
+
+<div class="comparison-row">
+
+<div class="comparison-label">
+Automação
+</div>
+
+<div class="bars">
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Alexandre
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-alexandre"
+style="width:5%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Adriana
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-adriana"
+style="width:35%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Paulo
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-paulo"
+style="width:100%">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- COMUNICAÇÃO -->
+
+<div class="comparison-row">
+
+<div class="comparison-label">
+Comunicação
+</div>
+
+<div class="bars">
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Alexandre
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-alexandre"
+style="width:80%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Adriana
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-adriana"
+style="width:80%">
+</div>
+</div>
+
+</div>
+
+
+<div class="bar-line">
+
+<div class="candidate-label">
+Paulo
+</div>
+
+<div class="bar-bg">
+<div class="bar-fill bar-paulo"
+style="width:100%">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="chart-note">
+
+<strong>Leitura do gráfico:</strong>
+o comprimento das barras representa uma síntese qualitativa da
+evidência registrada na entrevista. Não se trata de uma pontuação
+objetiva ou de uma avaliação psicométrica. "Não evidenciado" não
+significa ausência de conhecimento.
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     ANÁLISE INDIVIDUAL
+===================================================== -->
+
+<div class="card">
+
+<h2>
+Análise individual
+</h2>
+
+
+<div class="select-area">
+
+
+<div>
+
+<label style="
+font-size:12px;
+color:#6b7280;
+display:block;
+margin-bottom:6px;
+">
+
+Selecionar candidato
+
+</label>
+
+
+<select id="candidateSelect">
+
+<option value="paulo">
+Paulo Estevão
+</option>
+
+<option value="alexandre">
+Alexandre Luiz
+</option>
+
+<option value="adriana">
+Adriana Márcia
+</option>
+
+</select>
+
+</div>
+
+
+
+<div id="profile">
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     METODOLOGIA
+===================================================== -->
+
+<div class="methodology">
+
+<strong>Metodologia:</strong>
+
+A avaliação foi construída exclusivamente a partir dos registros
+de uma entrevista breve. "Não evidenciado" significa que determinada
+competência ou conhecimento não apareceu nos registros disponíveis,
+não significando necessariamente ausência de conhecimento.
+
+A aderência representa uma avaliação qualitativa para apoio à decisão
+e não substitui a percepção dos entrevistadores.
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   DADOS DOS CANDIDATOS
+===================================================== */
+
+const profiles = {
+
+paulo: {
+
+name:"Paulo Estevão",
+
+level:"Muito alta aderência",
+
+summary:
+
+"É o candidato que apresenta a combinação mais completa entre experiência direta com folha e capacidade de automação e melhoria de processos.",
+
+strengths:[
+
+"Taxador há 3 anos",
+
+"Experiência com benefícios, proventos e afastamentos",
+
+"Conhecimento de SISAP, SEI e Excel",
+
+"Experiência com robôs de automação",
+
+"Criação de formulários",
+
+"Desenvolvimento de solução para taxação de pagamentos",
+
+"Comunicação clara e detalhamento das experiências",
+
+"Proatividade e facilidade com otimização de processos"
+
+],
+
+attention:
+
+"SIAFI e conhecimento de classificação da despesa pública não foram evidenciados.",
+
+differential:
+
+"Combina experiência prática em folha com automação aplicada à própria rotina de trabalho."
+
+},
+
+
+
+alexandre: {
+
+name:"Alexandre Luiz",
+
+level:"Muito alta aderência",
+
+summary:
+
+"Apresenta experiência direta e mais longa nas rotinas de pagamento e taxação de pessoal.",
+
+strengths:[
+
+"Taxador há 5 anos",
+
+"Atuação direta com pagamento",
+
+"Experiência com exoneração e aposentadoria",
+
+"Conhecimento de SISAP",
+
+"Conhecimento de SEI",
+
+"Domínio de Excel",
+
+"Atuação atual no DRH da SEAPA",
+
+"Comunicação clara e objetiva"
+
+],
+
+attention:
+
+"Automação, SIAFI e classificação da despesa pública não foram evidenciados.",
+
+differential:
+
+"Maior experiência acumulada diretamente nas rotinas tradicionais de pagamento e taxação."
+
+},
+
+
+
+adriana: {
+
+name:"Adriana Márcia",
+
+level:"Alta aderência",
+
+summary:
+
+"Apresenta maior destaque no eixo financeiro e de administração pública, especialmente pelo conhecimento de SIAFI.",
+
+strengths:[
+
+"Trajetória profissional na SEE",
+
+"Atuação na área financeira",
+
+"Experiência com empenho e liquidação",
+
+"Conhecimento de SIAFI",
+
+"Conhecimento e administração do SEI",
+
+"Análise de sistemas",
+
+"Experiência com recursos financeiros das escolas",
+
+"Comunicação clara e objetiva"
+
+],
+
+attention:
+
+"Processamento, taxação e pagamento de pessoal não foram diretamente evidenciados.",
+
+differential:
+
+"Conhecimento financeiro e de sistemas que complementa o perfil dos candidatos com experiência mais direta em folha."
+
+}
+
+};
+
+
+
+/* =====================================================
+   PERFIL INDIVIDUAL
+===================================================== */
+
+const select =
+document.getElementById("candidateSelect");
+
+const profile =
+document.getElementById("profile");
+
+
+function updateProfile(){
+
+const candidate =
+profiles[select.value];
+
+
+const badgeClass =
+candidate.level === "Muito alta aderência"
+? "badge-high"
+: "badge-medium";
+
+
+profile.innerHTML = `
+
+<div class="profile">
+
+<div class="profile-header">
+
+<div class="profile-name">
+${candidate.name}
+</div>
+
+<span class="badge ${badgeClass}">
+${candidate.level}
+</span>
+
+</div>
+
+
+<div class="profile-summary">
+${candidate.summary}
+</div>
+
+
+<div class="profile-grid">
+
+
+<div>
+
+<strong>
+Evidências principais
+</strong>
+
+<ul>
+
+${candidate.strengths.map(
+item => `<li>${item}</li>`
+).join("")}
+
+</ul>
+
+</div>
+
+
+<div>
+
+<div class="attention">
+
+<strong>
+Ponto de atenção
+</strong>
+
+<p>
+${candidate.attention}
+</p>
+
+</div>
+
+
+<div style="margin-top:15px">
+
+<strong>
+Diferencial para a vaga
+</strong>
+
+<p>
+${candidate.differential}
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+select.addEventListener(
+"change",
+updateProfile
+);
+
+
+updateProfile();
+
+</script>
+
+</body>
+</html>
